@@ -58,6 +58,6 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 
         curl http://PUPPET_SERVER:8080/servers
 
-* How it works ? See [bowerpuppet-api](files/opt/puppet/bowerpuppet-api/)
+* How it works ? See [bower-puppet-api](files/opt/puppet/bower-puppet-api/)
 
 License: [MIT](LICENSE)

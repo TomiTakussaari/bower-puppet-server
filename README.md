@@ -38,7 +38,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 		"MY_OTHER_ENVIRONMENT": "GIT_READ_ONLY_URL#GIT_TAG",
 
 * GIT_READ_ONLY_URL#1 means "always use latest 1.x.x release from GIT_READ_ONLY_URL repository"
-* It uses [Bower](http://bower.io/), so other tricks to choose releae work too!
+* It uses [Bower](http://bower.io/), so other tricks to choose release work too!
 * Environment names may contain only alphanumeric characters and underscores (like foo_bar1)
 
 #### HTTP API

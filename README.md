@@ -10,7 +10,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 - Updates environments automatically on background, according to configuration you give it.
 - Configures itself by itself (Using Puppet of course)
 - HTTP API for doing nice things
-
+- Seems to work on both CentOS 6 & RHEL 6, probably does not work anywhere else.
 
 ### Why ?
 - Forces you to create releases from your Puppet Environments, instead of always deploying "master-SNAPSHOT"

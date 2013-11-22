@@ -1,0 +1,8 @@
+{
+    "name":  "Bower_puppet_master environments",
+    "version": "1.0.0",
+    "dependencies": {
+    		<%= @environments%>
+
+    }
+}

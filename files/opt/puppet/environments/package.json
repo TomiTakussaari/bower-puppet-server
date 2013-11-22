@@ -1,0 +1,7 @@
+{
+  "name": "wsp_puppet-master",
+  "version": "0.0.0",
+  "devDependencies": {
+    "bower": "~1.2.6"
+   }
+}

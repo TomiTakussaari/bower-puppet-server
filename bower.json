@@ -1,0 +1,10 @@
+{
+  "name": "bower-puppet-server",
+  "version": "0.0.1",
+  "ignore": [
+    "README.md"
+  ],
+  "dependencies": {
+  },
+  "private": "true"
+}

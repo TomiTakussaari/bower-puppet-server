@@ -42,6 +42,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 * Environment names may contain only alphanumeric characters and underscores (like foo_bar1)
 
 #### HTTP API
+* Fast way to see what versions & environments your installation is providing.
 * List environments and tracked releases
 
         curl PUPPET_SERVER:8080/environments

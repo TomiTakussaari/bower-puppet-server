@@ -7,19 +7,26 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 
 ### Features
 - Configure [Puppet environments](http://docs.puppetlabs.com/guides/environment.html) using [Bower](http://bower.io/) and Git
-- Configures itself (Using Puppet of course)
+- Updates environments, according to configuration you give it.
+- Configures itself by itself (Using Puppet of course)
 - HTTP API for doing nice things
 
+
 ### Why ?
-- Makes you create releases from your Puppet Environments
+- Forces you to create releases from your Puppet Environments, instead of always deploying "master-SNAPSHOT"
 - No need for Git triggers
 - Because it was possible
 
 ### Usage
+* Fetch this module using Bower (install it from [Bower.io](http://bower.io))
+		
+		bower install https://github.com/TomiTakussaari/bower_puppet_server.git#0.0.1
 
-		class { "bower_puppet_server":
-        	environments => template("my_module/my_environments")
-        }
+* Then use it in your own project like this
+
+			class { "bower_puppet_server":
+        			environments => template("my_module/my_environments")
+        		}
 
 * It expects environments to contain string in following format:
 
@@ -27,7 +34,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 		"MY_OTHER_ENVIRONMENT": "GIT_READ_ONLY_URL#GIT_TAG",
 
 * GIT_READ_ONLY_URL#1 means "always use latest 1.x.x release from GIT_READ_ONLY_URL repository"
-* It uses [Bower](http://bower.io/), so other tricks work too!
+* It uses [Bower](http://bower.io/), so other tricks to choose releae work too!
 * Environment names may contain only alphanumeric characters and underscores (like foo_bar1)
 
 #### HTTP API

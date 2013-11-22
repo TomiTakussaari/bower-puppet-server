@@ -7,7 +7,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 
 ### Features
 - Configure [Puppet environments](http://docs.puppetlabs.com/guides/environment.html) using [Bower](http://bower.io/) and Git
-- Updates environments, according to configuration you give it.
+- Updates environments automatically on background, according to configuration you give it.
 - Configures itself by itself (Using Puppet of course)
 - HTTP API for doing nice things
 

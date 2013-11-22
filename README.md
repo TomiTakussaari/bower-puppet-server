@@ -18,9 +18,13 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 - Because it was possible
 
 ### Usage
-* Fetch this module using Bower (install it from [Bower.io](http://bower.io))
+* Fetch this module using Bower (install it from [Bower.io](http://bower.io)) 
 		
 		bower install https://github.com/TomiTakussaari/bower_puppet_server.git#0.0.1
+
+* Or using Puppet
+
+		puppet module install tomitakussaari/bower_puppet_server --version 0.0.1
 
 * Then use it in your own project like this
 

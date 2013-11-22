@@ -56,4 +56,4 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 
 * How it works ? See [bowerpuppet-api](files/opt/puppet/bowerpuppet-api/)
 
-License: (MIT)[LICENSE]
+License: [MIT](LICENSE)

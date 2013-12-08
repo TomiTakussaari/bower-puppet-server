@@ -1,5 +1,5 @@
 name    'tomitakussaari/bower_puppet_server'
-version '0.0.1'
+version '0.5.0'
 source 'UNKNOWN'
 author 'tomitakussaari'
 license 'MIT'

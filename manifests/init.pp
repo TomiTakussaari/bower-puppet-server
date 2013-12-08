@@ -1,6 +1,9 @@
-class bower_puppet_server($environments) {
+class bower_puppet_server($environments, $enable_api='false') {
   include puppet
-  include nodejs
+
+  if( $enable_api == 'true') {
+    class {"bower_puppet_server::api":}
+  }
 
   package { "git":
     ensure => installed
@@ -10,7 +13,19 @@ class bower_puppet_server($environments) {
     ensure => installed
   }
 
-  file { ["/opt/", "/opt/puppet","/opt/puppet/environments", "/opt/puppet/scripts", "/opt/logs", "/opt/puppet/bower-puppet-api"]:
+  package { 'npm':
+    ensure => installed,
+    require => Yumrepo['epel']
+  }
+
+  yumrepo { "epel":
+    baseurl => "http://download.fedoraproject.org/pub/epel/6/\$basearch",
+    descr => "EPEL repo",
+    enabled => 1,
+    gpgcheck => 0,
+  }
+
+  file { ["/opt/", "/opt/puppet","/opt/puppet/environments", "/opt/puppet/scripts", "/opt/logs"]:
     ensure => directory,
     owner => "puppet",
     group => "puppet"
@@ -23,19 +38,6 @@ class bower_puppet_server($environments) {
     group => "puppet"
   }
 
-  file { "/opt/puppet/bower-puppet-api/bower-puppet-api.js":
-    source => "puppet:///modules/bower_puppet_server/opt/puppet/bower-puppet-api/bower-puppet-api.js",
-    mode => 0744,
-    owner => "puppet",
-    group => "puppet"
-  }
-
-  file { "/opt/puppet/bower-puppet-api/package.json":
-    source => "puppet:///modules/bower_puppet_server/opt/puppet/bower-puppet-api/package.json",
-    mode => 0744,
-    owner => "puppet",
-    group => "puppet"
-  }
 
   file { "/opt/puppet/environments/.bowerrc":
     source => "puppet:///modules/bower_puppet_server/opt/puppet/environments/.bowerrc",
@@ -55,24 +57,6 @@ class bower_puppet_server($environments) {
     group => "puppet"
   }
 
-
-  file { "/etc/init.d/bower-puppet-api":
-    ensure => present,
-    source => "puppet:///modules/bower_puppet_server/etc/init.d/bower-puppet-api",
-    owner => "root",
-    group => "root",
-    mode => 0744,
-  }
-
-  service { "bower-puppet-api":
-    enable => true,
-    ensure => running,
-    hasrestart => false,
-    hasstatus => true,
-    require => [
-          File["/etc/init.d/bower-puppet-api"], Package["npm"], File["/opt/puppet/bower-puppet-api/bower-puppet-api.js"], File["/opt/puppet/bower-puppet-api/package.json"]
-    ]
-  }
   cron { "module update":
     command => "/opt/puppet/scripts/update-modules.sh 1> /dev/null 2>> /opt/logs/git-update-crontab.log && touch /opt/logs/git-update-crontab.log",
     minute => "1-59",

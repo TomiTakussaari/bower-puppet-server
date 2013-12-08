@@ -10,7 +10,7 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 - Updates environments automatically on background, according to configuration you give it.
 - Configures itself by itself (Using Puppet of course)
 - HTTP API for doing nice things
-- Seems to work on both CentOS 6 & RHEL 6, probably does not work anywhere else.
+- Seems to work on both CentOS 6 & RHEL 6, probably does not work anywhere else currently.
 
 ### Why ?
 - Forces you to create releases from your Puppet Environments, instead of always deploying "master-SNAPSHOT"
@@ -20,11 +20,11 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 ### Usage
 * Fetch this module using Bower (install it from [Bower.io](http://bower.io)) 
 		
-		bower install https://github.com/TomiTakussaari/bower_puppet_server.git#0.0.1
+		bower install https://github.com/TomiTakussaari/bower_puppet_server.git#0.5.0
 
 * Or using Puppet
 
-		puppet module install tomitakussaari/bower_puppet_server --version 0.0.1
+		puppet module install tomitakussaari/bower_puppet_server --version 0.5.0
 
 * Then use it in your own project like this
 
@@ -43,6 +43,13 @@ Puppet module for configuring puppet server using [Bower](http://bower.io) for p
 
 #### HTTP API
 * Fast way to see what versions & environments your installation is providing.
+* Enable it:
+
+		class { "bower_puppet_server":
+    			environments =>  template("my_module/my_environments"),
+    			enable_api=>     'true'
+		}
+
 * List environments and tracked releases
 
         curl PUPPET_SERVER:8080/environments

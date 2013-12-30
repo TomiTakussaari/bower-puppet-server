@@ -5,7 +5,6 @@ class puppet {
     enabled  => 1,
     gpgcheck => 1,
     gpgkey => "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs",
-    require => Yumrepo["puppet-repository"]
   }
 
   yumrepo { "puppet-dependencies":

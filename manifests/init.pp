@@ -1,8 +1,10 @@
-class bower_puppet_server($environments, $enable_api='false') {
+class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt") {
   include puppet
 
   if( $enable_api == 'true') {
-    class {"bower_puppet_server::api":}
+    class {"bower_puppet_server::api":
+      root_directory => $root_directory
+    }
   }
 
   package { "git":
@@ -25,40 +27,40 @@ class bower_puppet_server($environments, $enable_api='false') {
     gpgcheck => 0,
   }
 
-  file { ["/opt/", "/opt/puppet","/opt/puppet/environments", "/opt/puppet/scripts", "/opt/logs"]:
+  file { ["$root_directory/puppet","$root_directory/puppet/environments", "$root_directory/puppet/scripts", "$root_directory/logs"]:
     ensure => directory,
     owner => "puppet",
     group => "puppet"
   }
 
-  file { "/opt/puppet/scripts/update-modules.sh":
-    source => "puppet:///modules/bower_puppet_server/opt/puppet/scripts/update-modules.sh",
+  file { "$root_directory/puppet/scripts/update-modules.sh":
+    content => template("bower_puppet_server/opt/puppet/scripts/update-modules.sh"),
     mode => 0744,
     owner => "puppet",
     group => "puppet"
   }
 
 
-  file { "/opt/puppet/environments/.bowerrc":
+  file { "$root_directory/puppet/environments/.bowerrc":
     source => "puppet:///modules/bower_puppet_server/opt/puppet/environments/.bowerrc",
     owner => "puppet",
     group => "puppet"
   }
 
-  file { "/opt/puppet/environments/bower.json":
+  file { "$root_directory/puppet/environments/bower.json":
     content => template("bower_puppet_server/opt/puppet/environments/bower.json"),
     owner => "puppet",
     group => "puppet"
   }
 
-  file { "/opt/puppet/environments/package.json":
+  file { "$root_directory/puppet/environments/package.json":
     source => "puppet:///modules/bower_puppet_server/opt/puppet/environments/package.json",
     owner => "puppet",
     group => "puppet"
   }
 
   cron { "module update":
-    command => "/opt/puppet/scripts/update-modules.sh 1> /dev/null 2>> /opt/logs/git-update-crontab.log && touch /opt/logs/git-update-crontab.log",
+    command => "$root_directory/puppet/scripts/update-modules.sh 1> /dev/null 2>> $root_directory/logs/git-update-crontab.log && touch $root_directory/logs/git-update-crontab.log",
     minute => "1-59",
     user => "puppet"
   }

@@ -6,14 +6,14 @@ var express = require("express");
 
 var app = express();
 app.use(app.router);
-var bowerJson = "/opt/puppet/environments/bower.json";
+var bowerJson = "<%= @root_directory %>/puppet/environments/bower.json";
 
 app.get("/environments", function(request, response) {
     printEnvironments(response);
 });
 
 app.get("/environments/((\\w+))", function(request, response){
-    printJsonFile(response, "/opt/puppet/environments/"+request.params[0]+"/.bower.json");
+    printJsonFile(response, "<%= @root_directory %>/puppet/environments/"+request.params[0]+"/.bower.json");
 });
 
 app.post("/environments", function(request, response) {
@@ -49,7 +49,7 @@ function printEnvironments(response) {
 }
 
 function updateModules(response) {
-    exec("/opt/puppet/scripts/update-modules.sh", function(error, stdout, stderr) {
+    exec("<%= @root_directory %>/puppet/scripts/update-modules.sh", function(error, stdout, stderr) {
         if(error) {
             writeError(response, error)
         } else {

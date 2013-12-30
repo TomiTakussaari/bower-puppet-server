@@ -7,7 +7,7 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd ${DIR} > /dev/null
 
-cd /opt/puppet/environments
+cd <%= @root_directory %>/puppet/environments
 npm install
 npm update
 

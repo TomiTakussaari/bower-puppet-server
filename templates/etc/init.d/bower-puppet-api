@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Bower-Server
+#
+#
+# chkconfig: - 65 45
+#
+# description: Enables management of puppet environments with HTTP API
+# processname: forever
+
+export PATH=$PATH:/usr/local/bin
+export NODE_PATH=$NODE_PATH:/opt/puppet/bower-server/node_modules
+
+case "$1" in
+  start)
+  runuser -l puppet -c "cd <%= @root_directory %>/puppet/bower-puppet-api && npm install" -s /bin/bash
+  runuser -l puppet -c "<%= @root_directory %>/puppet/bower-puppet-api/node_modules/.bin/forever start <%= @root_directory %>/puppet/bower-puppet-api/bower-puppet-api.js" -s /bin/bash
+  ;;
+stop)
+  runuser -l puppet -c "<%= @root_directory %>/puppet/bower-puppet-api/node_modules/.bin/forever stop <%= @root_directory %>/puppet/bower-puppet-api/bower-puppet-api.js" -s /bin/bash
+  ;;
+status)
+  runuser -l puppet -c "<%= @root_directory %>/puppet/bower-puppet-api/node_modules/.bin/forever list | grep bower-puppet-api" -s /bin/bash
+  ;;
+*)
+  echo "Usage: /etc/init.d/bower-puppet-api {start|stop|status}"
+  exit 1
+  ;;
+esac
+
+exit 0

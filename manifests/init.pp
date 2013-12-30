@@ -1,5 +1,7 @@
-class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt") {
-  include puppet
+class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt", $my_environment) {
+  class {"puppet": 
+    my_environment => $my_environment
+  }
 
   if( $enable_api == 'true') {
     class {"bower_puppet_server::api":

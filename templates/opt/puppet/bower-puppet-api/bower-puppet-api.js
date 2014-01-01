@@ -5,15 +5,16 @@ var port = 8080;
 var express = require("express");
 
 var app = express();
+var rootDirectory = "<%= @root_directory %>"
 app.use(app.router);
-var bowerJson = "<%= @root_directory %>/puppet/environments/bower.json";
+var bowerJson = rootDirectory+"/puppet/environments/bower.json";
 
 app.get("/environments", function(request, response) {
     printEnvironments(response);
 });
 
 app.get("/environments/((\\w+))", function(request, response){
-    printJsonFile(response, "<%= @root_directory %>/puppet/environments/"+request.params[0]+"/.bower.json");
+    printJsonFile(response, rootDirectory+"/puppet/environments/"+request.params[0]+"/.bower.json");
 });
 
 app.post("/environments", function(request, response) {
@@ -24,6 +25,7 @@ app.get("/servers", function(request, response) {
     printManagedServers(response);
 });
 
+app.listen(port);
 function printManagedServers(response) {
     fs.readdir("/var/lib/puppet/ssl/ca/signed", function(err, files) {
         if(err) {
@@ -49,7 +51,7 @@ function printEnvironments(response) {
 }
 
 function updateModules(response) {
-    exec("<%= @root_directory %>/puppet/scripts/update-modules.sh", function(error, stdout, stderr) {
+    exec(rootDirectory+"/puppet/scripts/update-modules.sh", function(error, stdout, stderr) {
         if(error) {
             writeError(response, error)
         } else {
@@ -77,5 +79,3 @@ function writeError(response, error) {
     response.write(error + "\n");
     response.end(); 
 }
-
-app.listen(port);

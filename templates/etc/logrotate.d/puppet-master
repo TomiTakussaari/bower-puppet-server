@@ -1,0 +1,7 @@
+<%= @root_directory %>/puppet/reports/*/*.* {
+    copytruncate
+    daily
+    rotate 10
+    compress
+    missingok
+}

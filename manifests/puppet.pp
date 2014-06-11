@@ -35,6 +35,13 @@ class puppet($my_environment) {
     require => [File["/etc/puppet/puppet.conf"], Package["puppet-server"]],
   }
 
+  file { "/etc/logrotate.d/puppet-master":
+    ensure => present,
+    content => template("bower_puppet_server/etc/logrotate.d/puppet-master"),
+    owner => "root",
+    group => "root"
+  }
+
   file { "/etc/puppet/puppet.conf":
     ensure => present,
     content => template("bower_puppet_server/etc/puppet/puppet.conf"),

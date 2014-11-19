@@ -1,7 +1,7 @@
 class puppet($my_environment, $puppet_version) {
   yumrepo { "puppet-repository":
     descr =>"Puppet repository",
-    baseurl => "http://yum.puppetlabs.com/el/6.4/products/x86_64/",
+    baseurl => "http://yum.puppetlabs.com/el/6/products/x86_64/",
     enabled  => 1,
     gpgcheck => 1,
     gpgkey => "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs",

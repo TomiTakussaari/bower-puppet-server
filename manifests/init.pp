@@ -18,6 +18,10 @@ class bower_puppet_server($environments, $enable_api='false', $root_directory="/
     ensure => installed
   }
 
+  package { "procmail":
+    ensure => installed
+  }
+
   package { 'npm':
     ensure => installed,
     require => Yumrepo['epel']

@@ -8,10 +8,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd ${DIR} > /dev/null
 
 cd <%= @root_directory %>/puppet/environments
+
+lockfile -r0 update-modules.lock
+
 npm install
 npm update
 
 node_modules/bower/bin/bower -f install
 node_modules/bower/bin/bower -f update
 
+rm -f update-modules.lock
+
 popd > /dev/null
+

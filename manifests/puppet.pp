@@ -1,4 +1,4 @@
-class puppet($my_environment, $puppet_version) {
+class puppet($my_environment, $puppet_version, $reports_config) {
   yumrepo { "puppet-repository":
     descr =>"Puppet repository",
     baseurl => "http://yum.puppetlabs.com/el/6/products/x86_64/",

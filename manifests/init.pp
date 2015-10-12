@@ -1,7 +1,8 @@
-class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt", $my_environment, $puppet_version="installed") {
+class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt", $my_environment, $puppet_version="installed", $reports_config="store") {
   class {"puppet": 
     my_environment => $my_environment,
-    puppet_version => $puppet_version
+    puppet_version => $puppet_version,
+    reports_config => $reports_config,
   }
 
   if( $enable_api == 'true') {

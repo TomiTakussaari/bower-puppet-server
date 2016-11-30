@@ -18,11 +18,14 @@ cd <%= @root_directory %>/puppet/environments
 lockfile -r0 update-modules.lock
 trap clean_up EXIT
 
+
 npm install
 npm update
 
-node_modules/bower/bin/bower -f install
-node_modules/bower/bin/bower -f update
+CI=true #https://bower.io/docs/api/#running-on-a-continuous-integration-server
+node_modules/bower/bin/bower prune
+node_modules/bower/bin/bower install --force-latest
+node_modules/bower/bin/bower update --force-latest
 
 clean_up
 

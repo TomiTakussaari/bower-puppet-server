@@ -1,4 +1,11 @@
-class bower_puppet_server($environments, $enable_api='false', $root_directory="/opt", $my_environment, $puppet_version="installed", $reports_config="store") {
+class bower_puppet_server($environments, 
+  $enable_api='false', 
+  $root_directory="/opt", 
+  $my_environment, 
+  $puppet_version="installed", 
+  $reports_config="store",
+  $cron_poll_git_changes_minutes="*/5",
+  $cron_poll_git_changes_weekdays="1-5") {
   class {"puppet": 
     my_environment => $my_environment,
     puppet_version => $puppet_version,
@@ -69,7 +76,8 @@ class bower_puppet_server($environments, $enable_api='false', $root_directory="/
 
   cron { "module update":
     command => "$root_directory/puppet/scripts/update-modules.sh 1> /dev/null 2>> $root_directory/logs/git-update-crontab.log && touch $root_directory/logs/git-update-crontab.log",
-    minute => "1-59",
+    minute => "$cron_poll_git_changes_minutes",
+    weekday => "$cron_poll_git_changes_weekdays"
     user => "puppet"
   }
 }
